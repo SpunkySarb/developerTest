@@ -1,0 +1,20 @@
+.login, .create {
+
+width:170px;
+
+
+}
+.contactImage {
+
+height: 100px;
+width: 100px;
+
+
+}
+
+.addContact{
+position: fixed;
+bottom: 10px;
+right: 10px;
+
+}
