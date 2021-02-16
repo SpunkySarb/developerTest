@@ -19,5 +19,6 @@ Username, Password, Contacts, Shared
 
 contacts and shared columns are storing contacts in json format
 
+The app is accessible at http://devtestsarbjeet.herokuapp.com
 
 
