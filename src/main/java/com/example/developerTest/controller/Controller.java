@@ -2,6 +2,7 @@ package com.example.developerTest.controller;
 
 import com.example.developerTest.dao.Database;
 import com.example.developerTest.model.ContactList;
+import com.example.developerTest.model.Contacts;
 import com.example.developerTest.model.Users;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,6 +11,25 @@ import org.springframework.web.servlet.ModelAndView;
 @org.springframework.stereotype.Controller
 
 public class Controller {
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(String currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    private String currentUser;
+
+    public String getCurrentPassword() {
+        return currentPassword;
+    }
+
+    public void setCurrentPassword(String currentPassword) {
+        this.currentPassword = currentPassword;
+    }
+
+    private String currentPassword;
     Database database = new Database();
 @RequestMapping("/home")
     public String homepage(){
@@ -41,9 +61,13 @@ public ModelAndView createUser(@RequestParam("username") String username, @Reque
 
     database.addUser(newUser);
 if(database.getErrorReport()==0) {
+    mv.addObject("color", "green");
+
     mv.addObject("notify", "Congartulations " + username + ". You have been added and You may Login Now...");
 }else if(database.getErrorReport()==1){
     mv.setViewName("create.jsp");
+    mv.addObject("color", "red");
+
     mv.addObject("notify", "Sorry! Username " + username + " already exists please try another Username");
 
 }
@@ -57,12 +81,21 @@ if(database.getErrorReport()==0) {
     public ModelAndView login(@RequestParam("username") String username, @RequestParam("password") String password){
 ModelAndView mv = new ModelAndView("book.jsp") ;
 
-    database.readUserContacts(username, password);
+setCurrentUser(username);
+setCurrentPassword(password);
+    try {
+        mv.addObject("contactCode", generateContactList(database.readUserContacts(username, password).get(0)));
+    }catch (Exception e){
 
-    System.out.println(database.readUserContacts(username,password).get(0).getContacts().get(0).getPhoneNumber());
+    }
+if(database.getErrorReport()==0) {
 
-    mv.addObject("contactCode", generateContactList(database.readUserContacts(username, password).get(0)));
+}else if(database.getErrorReport()==1){
+    mv.setViewName("home.jsp");
+    mv.addObject("color", "red");
+    mv.addObject("notify", "Invalid Username or Password Please Try again...");
 
+}
 
 return mv;
     }
@@ -88,7 +121,7 @@ HTMLCode = HTMLCode + "<div class=\"w3-container  w3-black w3-round-large w3-cen
         "<h2 class=\"w3-left\">"+firstName+" "+lastName+"</h2> <br>\n" +
         "\n" +
         "<span class=\"w3-small w3-left\">phone: "+phoneNumber+"</span><br>\n" +
-        "<span class=\"w3-small w3-left\">email: <a href=\"mailto:"+email+"\">"+email+"</span>\n" +
+        "<span class=\"w3-small w3-left\">email: "+email+"</span>\n" +
         "</div>\n" +
         "\n" +
         "\n" +
@@ -97,10 +130,7 @@ HTMLCode = HTMLCode + "<div class=\"w3-container  w3-black w3-round-large w3-cen
 
 
 
-
  }
-
-
 
 
 
@@ -108,7 +138,49 @@ HTMLCode = HTMLCode + "<div class=\"w3-container  w3-black w3-round-large w3-cen
 }
 
 
+@RequestMapping("/addContact")
+    public ModelAndView addContact(@RequestParam("firstName")String firstName,
+                                   @RequestParam("lastName")String lastName,
+                                   @RequestParam("phoneNumber")String phoneNumber,
+                                   @RequestParam("email")String email){
 
+ModelAndView mv = new ModelAndView("book.jsp");
+
+Contacts contactDetails = new Contacts();
+    contactDetails.setEmail(email);
+    contactDetails.setFirstName(firstName);
+    contactDetails.setLastName(lastName);
+    contactDetails.setPhoneNumber(phoneNumber);
+
+    //generating json
+    String json;
+if(database.getContactsJson()==null){
+    json = "{\"contacts\":[ {\"firstName\":\"Welcome\", \"lastName\":\""+currentUser+"\", \"phoneNumber\":\"000-000-0000\", \"email\":\"developerTest@demo.com\" }";
+}else{
+    json = database.getContactsJson().replace("]}", "");
+}
+
+
+    json = json + ", {\"firstName\":\""+contactDetails.getFirstName()+"\", \"lastName\":\""+contactDetails.getLastName()+"\", \"phoneNumber\":\""+contactDetails.getPhoneNumber()+"\", \"email\":\""+contactDetails.getEmail()+"\" }]}";
+
+    database.addContact(json, getCurrentUser());
+    try {
+        mv.addObject("contactCode", generateContactList(database.readUserContacts(getCurrentUser(), getCurrentPassword()).get(0)));
+    }catch (Exception e){
+
+    }
+    if(database.getErrorReport()==0) {
+
+    }else if(database.getErrorReport()==1){
+        mv.setViewName("home.jsp");
+        mv.addObject("color", "red");
+        mv.addObject("notify", "Invalid Username or Password Please Try again...");
+
+    }
+
+
+    return mv;
+}
 
 
 

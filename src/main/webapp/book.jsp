@@ -62,7 +62,7 @@
     <p> Log out</p>
   </div>
 
-<div class="w3-panel w3-gray w3-border-yellow w3-leftbar w3-card">
+<div class="w3-panel w3-gray w3-border-yellow w3-leftbar w3-card" id="logout">
 <p>Developed by Sarb</p>
 </div>
 
@@ -79,76 +79,9 @@
 <br>
 <!-- contact list -->
 <br><br><br><br>
-<div class="w3-container  w3-black w3-round-large w3-center w3-card-4 w3-margin">
-  <img src="test.jpg" class="w3-circle w3-bar-item  w3-margin contactImage" alt=""><br>
 
-<div class=" w3-margin w3-bar">
-
-<div class="w3-xlarge w3-bar-item">
-<h2 class="w3-left">Sarbjeet Singh</h2> <br>
-
-<span class="w3-small w3-left">phone: 613-501-7933</span><br>
-<span class="w3-small w3-left">email: <a href="mailto:connect@sarbzone.com">connect@sarbzone.com</span>
-</div>
-
-
-</div>
-</div>
 
 ${contactCode}
-
-<div class="w3-container  w3-black w3-round-large w3-center w3-card-4 w3-margin">
-  <img src="test.jpg" class="w3-circle w3-bar-item  w3-margin contactImage" alt=""><br>
-
-<div class=" w3-margin w3-bar">
-
-<div class="w3-xlarge w3-bar-item">
-<h2 class="w3-left">Sarbjeet Singh</h2> <br>
-
-<span class="w3-small w3-left">phone: 613-501-7933</span><br>
-<span class="w3-small w3-left">email: connect@sarbzone.com</span>
-</div>
-
-
-</div>
-</div>
-
-
-
-<div class="w3-container  w3-black w3-round-large w3-center w3-card-4 w3-margin">
-  <img src="test.jpg" class="w3-circle w3-bar-item  w3-margin contactImage" alt=""><br>
-
-<div class=" w3-margin w3-bar">
-
-<div class="w3-xlarge w3-bar-item">
-<h2 class="w3-left">Sarbjeet Singh</h2> <br>
-
-<span class="w3-small w3-left">phone: 613-501-7933</span><br>
-<span class="w3-small w3-left">email: connect@sarbzone.com</span>
-</div>
-
-
-</div>
-</div>
-
-
-
-
-<div class="w3-container  w3-black w3-round-large w3-center w3-card-4 w3-margin">
-  <img src="test.jpg" class="w3-circle w3-bar-item  w3-margin contactImage" alt=""><br>
-
-<div class=" w3-margin w3-bar">
-
-<div class="w3-xlarge w3-bar-item">
-<h2 class="w3-left">Sarbjeet Singh</h2> <br>
-
-<span class="w3-small w3-left">phone: 613-501-7933</span><br>
-<span class="w3-small w3-left">email: connect@sarbzone.com</span>
-</div>
-
-
-</div>
-</div>
 
 
 
@@ -168,17 +101,17 @@ ${contactCode}
 </div>
 
 <div class="w3-container w3-margin">
-  <form class="" action="index.html" method="post">
+  <form class="" name="addContact"  action="addContact" method="post">
 
 
-<input type="file" class="w3-round w3-black" name="" value="" style="width:200px;"> <br><br>
-<input type="text" class="w3-input w3-round-large" name=""  value="" placeholder="Enter First Name.."><br>
-<input type="text" class="w3-input w3-round-large" name=""  value="" placeholder="Enter Last Name.."><br>
-<input type="text" class="w3-input w3-round-large" name=""  value="" placeholder="Enter Phone Number.."><br>
-<input type="text" class="w3-input w3-round-large" name=""  value="" placeholder="Enter Email Id.."><br>
+<input type="file" class="w3-round w3-black" name="image" value="" style="width:200px;"> <br><br>
+<input type="text" class="w3-input w3-round-large" name="firstName"  value="" placeholder="Enter First Name.."><br>
+<input type="text" class="w3-input w3-round-large" name="lastName"  value="" placeholder="Enter Last Name.."><br>
+<input type="text" class="w3-input w3-round-large" name="phoneNumber"  value="" placeholder="Enter Phone Number.."><br>
+<input type="text" class="w3-input w3-round-large" name="email"  value="" placeholder="Enter Email Id.."><br>
 <br>
-<button type="button" class="w3-button w3-black addInformation" name="button"><span>ADD</span></button>
-<button type="button" class="w3-button w3-black addCancel" name="button">CANCEL</button>
+<button  type="submit" class="w3-button w3-black addInformation" name="button"><span>ADD</span></button>
+<button type="button"  class="w3-button w3-black addCancel" name="button">CANCEL</button>
 
 </form>
 </div>

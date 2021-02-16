@@ -9,7 +9,15 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class  Database {
+    public String getContactsJson() {
+        return contactsJson;
+    }
 
+    public void setContactsJson(String contactsJson) {
+        this.contactsJson = contactsJson;
+    }
+
+    private String contactsJson;
     private int errorReport;
 
     public int getErrorReport() {
@@ -27,7 +35,7 @@ public class  Database {
 
     static Connection conn = null;
 
-    public Database() {
+    public void connect() {
 
         try {
             conn = DriverManager.getConnection(
@@ -49,7 +57,7 @@ public class  Database {
 
 
     public void addUser(Users user) {
-
+connect();
         Statement addStmt = null;
 
         try {
@@ -78,7 +86,7 @@ public class  Database {
 
     public ArrayList<ContactList> readUserContacts(String username, String password) {
 
-
+connect();
         ArrayList<ContactList> list = new ArrayList<>();
 
         Statement stmt = null;
@@ -86,12 +94,16 @@ public class  Database {
 
         try {
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT contacts FROM Users where username = '"+username+"' and password= '"+password+"';");
-            setErrorReport(0); // Error report zero if data got retrived
+
+            rs = stmt.executeQuery("SELECT username, contacts FROM Users where username = '"+username+"' and password= '"+password+"';");
+           setErrorReport(0);
+
 
             while (rs.next()) {
 
+
                 String json = rs.getString("contacts");
+                setContactsJson(json);
                 System.out.println(json);
                 Gson gson = new Gson();
 
@@ -119,5 +131,38 @@ public class  Database {
         return list;
 
     }
+
+
+    public void addContact(String contactJson, String userName){
+        connect();
+
+        Statement addStmt = null;
+
+        try {
+            addStmt = conn.createStatement();
+            addStmt.executeUpdate("UPDATE `Users` SET `contacts` = '"+contactJson+"' WHERE `Users`.`username` = '"+userName+"'; ");
+            addStmt.close();
+
+            setErrorReport(0); // Error report zero if data got inserted
+
+        } catch (SQLException ex) {
+            // handle any errors
+
+            setErrorReport(1); // Error report zero if data got inserted
+
+
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+
+
+    }
+
+
+
+
+
+
 
 }

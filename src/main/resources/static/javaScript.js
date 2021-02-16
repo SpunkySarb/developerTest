@@ -75,6 +75,13 @@ location.href = "/create";
 
 
 
+$("#logout").click(function(){
+
+location.href = "/";
+
+
+
+});
 
 
 

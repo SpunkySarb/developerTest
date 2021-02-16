@@ -26,7 +26,7 @@
 <div class="w3-container  w3-center w3-round w3-black">
 <p>Login</p>
 </div><br>
-<div class="w3-tag w3-green w3-round-large w3-center w3-margin">${notify}</div><br>
+<div class="w3-tag w3-${color} w3-round-large w3-center w3-margin">${notify}</div><br>
 <br>
 <div class="w3-center">
   <form class="" action="/login" method="post">
