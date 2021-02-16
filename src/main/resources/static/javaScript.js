@@ -65,6 +65,17 @@ $(".sidebar").hide(200);
 });
 
 
+$(".create").click(function(){
+
+location.href = "/create";
+
+
+
+});
+
+
+
+
 
 
 

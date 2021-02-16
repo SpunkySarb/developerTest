@@ -24,20 +24,19 @@
 
 <div class="w3-content  w3-margin w3-round-large w3-card-4">
 <div class="w3-container  w3-center w3-round w3-black">
-<p>Login</p>
-</div><br>
-<div class="w3-tag w3-green w3-round-large w3-center w3-margin">${notify}</div><br>
+<p>Create Account</p>
+</div>
+<br>
+<div class="w3-tag w3-red w3-round-large w3-center w3-margin">${notify}</div><br>
 <br>
 <div class="w3-center">
-  <form class="" action="/login" method="post">
-    <input type="text" name="username" class="w3-input  w3-round-large" value="" placeholder="Enter Username..."><br>
-    <input type="password" name="password" class="w3-input  w3-round-large" value="" placeholder="Enter Password..."><br>
-    <input type="submit" class="w3-button w3-black w3-round-large login" name="" value="Login"><br><br>
+  <form class="" action="/createUser" method="post">
+    <input type="text" name="username" class="w3-input  w3-round-large" value="" placeholder="Choose a Username..."><br>
+    <input type="password" name="password" class="w3-input  w3-round-large" value="" placeholder="Choose Password..."><br>
+    <input type="submit" class="w3-button w3-black w3-round-large login" name="" value="Create"><br><br>
 
   </form>
-  <div class="w3-button w3-center w3-black  w3-round-large create">
-Create an Account
-  </div>
+
   <br><br><br>
 </div>
 
